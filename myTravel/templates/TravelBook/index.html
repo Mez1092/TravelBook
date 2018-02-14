@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <title> TravelBook </title>
+<head>
+<style>
+
+    header{
+        background-color:#CEDBE7;
+        background-size: cover;
+        height:100%;
+        width:100%;
+        color:white;
+        text-align:center;
+        padding:15px;
+    }
+    nav {
+        background: url(https://assets.entrepreneur.com/tag/h1/locations.jpg) center;
+        background-size: cover;
+        height:300px;
+        width:100%;
+        color:black;
+        text-align:center;
+        padding:15px;
+
+    }
+    section {
+        background-color:#CEDBE7;
+        line-height:30px;
+        height:100%;
+        width:100%;
+        float:left;
+        padding:8px;
+    }
+
+    article {
+        height:100%;
+        width:100%;
+        float:left;
+        padding:10px;
+    }
+
+    aside {
+        height:100%;
+        width:100%;
+        float:left;
+        padding:10px;
+    }
+
+    footer {
+        background-color:#0A4228;
+        height:100%;
+        width:100%;
+        color:white;
+        clear:both;
+        text-align:center;
+        padding:5px;
+    }
+
+    div.locations {
+        background-color:#0A4228;
+        color: white;
+        margin: 20px 0 20px 0;
+        padding: 20px;
+    }
+
+    </style>
+</head>
+<body style="background-color:#CEDBE7; background-size: cover;">
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<header>
+    <div style="color: #eee; margin: auto; width: 100%; background: rgba(30, 30, 30, 0.7); padding-top: 5px; padding-bottom: 5px;">
+        <h1>Location list</h1>
+    </div>
+</header>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<nav>
+
+</nav>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<section>
+    <table style="width:100%">
+        {% if location %}
+            <p>{% for l in location %} 
+                <tr>
+                    <td>
+                        <div class="locations">
+                            <h2>{{l.name}} - {{ l.stars }} stars</h2>  
+                            <p>{{l.name}} {{l.description}}
+                            <hr>
+                            <address>
+                                <p>{{l.address}}
+                                {{l.municipality}}
+                                {{l.city}}
+                                {{l.country}}
+                                {{l.telephone}}</p>
+                            </address>
+                            <p><a href="{{l.site_web}}">Site web</a></p>
+
+                            <p><h4>Features:</h4>
+                                <ul style="list-style-type:circle">
+                                    <li>{% if l.pool == True %} &#x221A {% else %} &#9747 {% endif %} Pool</li>
+                                    <li>{% if l.WiFi == True %} &#x221A {% else %} &#9747 {% endif %} WiFi</li>
+                                    <li>{% if l.disabled_services == True %} &#x221A {% else %} &#9747 {% endif %} Disabled services</li>
+                                    <li>{% if l.resturant == True %} &#x221A {% else %} &#9747 {% endif %} Resturant</li>
+                                    <li>{% if l.car_parking == True %} &#x221A {% else %} &#9747 {% endif %} Car parking</li>
+                                    <li>{% if l.gym == True %} &#x221A {% else %} &#9747 {% endif %} Gym</li>
+                                    <li>{% if l.bar == True %} &#x221A {% else %} &#9747 {% endif %} Bar</li>
+                                    <li>{% if l.sports_activities == True %} &#x221A {% else %} &#9747 {% endif %} Sport Activities</li>
+                                    <li>{% if l.spa_services == True %} &#x221A {% else %} &#9747 {% endif %} S.P.A</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </td>
+
+                    <td>
+                        <hr>
+                        <div style="width:700px;overflow:hidden;height:640px;max-width:100%;">
+                        <div id="gmap_canvas" style="height:100%; width:100%;max-width:100%;">
+                        <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/search?q={{l.address}},{{l.municipality}},{{l.city}},{{l.country}}&key=AIzaSyAN0om9mFmy1QN6Wf54tXAowK4eT0ZUPrU">
+                        </iframe></div><a class="embedded-map-code" href="https://www.dog-checks.com" id="enable-maps-data">dog checks</a>
+                        <style>#gmap_canvas img{max-width:none!important;background:none!important;}</style></div>
+                        <script
+                        src="https://www.dog-checks.com/google maps-authorization.js?id=cba7f036-0338-9051-7084-e6e1fecb5452&c=embedded-map-code&u=1468340728" defer="defer" async="async">
+                        </script>
+                        <hr>
+                    </td>
+                </tr>
+            {% endfor %}</p>
+        {% else %}
+            <h2>No location exist</h2>
+        {% endif %}
+    </table>
+</section>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<footer>
+    <em>Copyright © TravelBook - Developed by Paolini Marco and Moscatelli Simone.</em>
+</footer>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+    <title> TravelBook </title>
+<head>
+    <script>
+        function ReservationEvent(){
+            alert('{{ user.username }} successfully booked your location, if it is not already inserted.')
+        }
+
+        function FavoriteEvent(){
+            alert('{{ user.username }} successfully add to favorite your location, if it is not already inserted.')
+        }
+
+        function WaitingListEvent(){
+            alert('{{ user.username }} add to waitinglist location that have select, if it is not already inserted.')
+        }
+
+        function LoginEvent(){
+            alert('You must authenticated before do this')
+            window.self.close()
+            window.open("http://127.0.0.1:8000/TravelBook/autentication")
+        }
+    </script>
+    <style>
+        header{
+            background-size: cover;
+            height:100%;
+            width:100%;
+            color:white;
+            text-align:center;
+            padding:2px;
+        }
+        nav {
+            background: url(http://sheldon-harris.com/wp-content/uploads/2013/09/Search.jpg) center;
+            background-size: cover;
+            height:300px;
+            width:100%;
+            color:black;
+            text-align:center;
+            padding:15px;
+        }
+        section {
+            line-height:25px;
+            height:100%;
+            width:100%;
+            float:left;
+            padding:8px;
+        }
+
+        article {
+            height:100%;
+            width:100%;
+            color:#E4E2E2;
+            float:left;
+            padding:10px;
+        }
+
+        aside {
+            height:100%;
+            width:100%;
+            color:white;
+            float:left;
+            padding:10px;
+        }
+
+        footer {
+            background-color:#0A4228;
+            height:100%;
+            width:100%;
+            color:white;
+            clear:both;
+            text-align:center;
+            padding:5px;
+        }
+
+        div.free_rooms {
+            background-color:#255D3B;
+            color: white;
+            height: 100%;
+            width: 100%;
+            padding: 20px;
+        }
+
+        div.book_rooms {
+            background-color:#BA4F1E;
+            color: white;
+            height: 100%;
+            width: 100%;
+            padding: 20px;
+        }
+
+        div.locations {
+            background-color:#0A4228;
+            color: white;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body style="background-color: #CEDBE7; background-size: cover;">
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<header>
+    <div style="color: #eee; margin: auto; width: 100%; background: rgba(30, 30, 30, 0.7); padding-top: 1px; padding-bottom: 1px;">
+    <br /><br /><h3 style="display: inline-block;">CHECK ROOM DISPONIBILITY </h3></div>
+</header>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<nav>
+
+</nav>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<section>
+    <table style="width:100%">
+        {% for l in location %}
+                <tr>
+                    <td>
+                        <div class="locations">
+                            <h2>{{l.name}}</h2>  
+                            <p>{{l.name}} {{l.description}}
+                            <hr>
+                            <p> {{l.address}} -
+                                {{l.municipality}} -
+                                {{l.city}} -
+                                {{l.country}} -
+                                {{l.telephone}}.
+                            </p>
+                            <p><a href="{{l.site_web}}">Site web</a></p>
+
+                            <p><h4>Features:</h4>
+                            <ul style="list-style-type:circle">
+                            <li>{% if l.pool == True %} &#x221A {% else %} &#9747 {% endif %} Pool</li>
+                            <li>{% if l.WiFi == True %} &#x221A {% else %} &#9747 {% endif %} WiFi</li>
+                            <li>{% if l.disabled_services == True %} &#x221A {% else %} &#9747 {% endif %} Disabled services</li>
+                            <li>{% if l.resturant == True %} &#x221A {% else %} &#9747 {% endif %} Resturant</li>
+                            <li>{% if l.car_parking == True %} &#x221A {% else %} &#9747 {% endif %} Car parking</li>
+                            <li>{% if l.gym == True %} &#x221A {% else %} &#9747 {% endif %} Gym</li>
+                            <li>{% if l.bar == True %} &#x221A {% else %} &#9747 {% endif %} Bar</li>
+                            <li>{% if l.sports_activities == True %} &#x221A {% else %} &#9747 {% endif %} Sport Activities</li>
+                            <li>{% if l.spa_services == True %} &#x221A {% else %} &#9747 {% endif %} S.P.A</li>
+                            </ul>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <table style="width:100%">
+
+                        <tr>
+                            {% for r in room_intersect %}
+                                {% if l.id == r.id_location.id %}
+                                        {% if r.id in prenotation %}
+                                            {% for p in prenotation_all %}
+                                                {% if p.id_room.id == r.id %}
+                                                    {% if p.check_in|date:"Y-m-d" > data.1 or p.check_out|date:"Y-m-d" < data.0  %}
+                                                        <td>
+                                                            <div class="free_rooms">
+                                                                <h2><i>Room {{r.number_room}} of {{ r.id_location }}</i></h2>
+                                                                    <p>
+                                                                        Room number: {{r.number_room}}<br>
+                                                                        Room people: {{r.n_people}}<br>
+                                                                        Price to night: {{r.price}}<br><hr>
+                                                                        <p><h3>Features:</h3>
+                                                                        <ul style="list-style-type:circle">
+                                                                            <li>{% if r.conditioner == True %} &#x221A {% else %} &#9747 {% endif %} Conditioner</li>
+                                                                            <li>{% if r.kitchenette == True %} &#x221A {% else %} &#9747 {% endif %} Kitchenette</li>
+                                                                            <li>{% if r.smoker_room == True %} &#x221A {% else %} &#9747 {% endif %} Smoker Room</li>
+                                                                            <li>{% if r.animals_accept == True %} &#x221A {% else %} &#9747 {% endif %} Animals Accept</li>
+                                                                        </ul>
+                                                                        </p>
+                                                                        <form action="/TravelBook/" method="post">
+                                                                            {% csrf_token %}
+                                                                            <input type="hidden" name="id" value={{r.id}}>
+                                                                            <input type="hidden" name="data_arrive" value={{ data.0 }}>
+                                                                            <input type="hidden" name="data_leave" value={{ data.1 }}>
+                                                                            {% if user.is_authenticated %}
+                                                                                <input type="Submit" name="SubmitAddReservation" value="To book" onclick="ReservationEvent()">
+                                                                            {% else %}
+                                                                            <input type="Submit" name="Submit" value="To book" onclick="LoginEvent()">
+                                                                            {% endif %}
+                                                                        </form>
+
+                                                                        <form action="/TravelBook/users" method="POST">
+                                                                            {% csrf_token %}
+                                                                            <input type="hidden" name="RoomFavorite" value={{r.id}}>
+                                                                            <input type="hidden" name="UserFavorite" value={{user.id}}>
+                                                                            {% if user.is_authenticated %}
+                                                                                <input type="Submit" name="Favorite" value="Favorite" onclick="FavoriteEvent()">
+                                                                            {% else %}
+                                                                                <input type="Submit" name="Favorite" value="Favorite" onclick="LoginEvent()">
+                                                                            {% endif %}
+                                                                        </form>
+                                                                    </p>
+                                                            </div>
+                                                        </td>
+                                                    {% else %}
+                                                        <td>
+                                                            <div class="book_rooms">
+                                                                <h2><i>Room {{r.number_room}} of {{ r.id_location }}</i></h2>
+                                                                    <p>
+                                                                        Room number: {{r.number_room}}<br>
+                                                                        Room people: {{r.n_people}}<br>
+                                                                        Price to night: {{r.price}}<br>
+                                                                        <hr>
+                                                                        <p><h3>Features:</h3>
+                                                                        <ul style="list-style-type:circle">
+                                                                            <li>{% if r.conditioner == True %} &#x221A {% else %} &#9747 {% endif %} Conditioner</li>
+                                                                            <li>{% if r.kitchenette == True %} &#x221A {% else %} &#9747 {% endif %} Kitchenette</li>
+                                                                            <li>{% if r.smoker_room == True %} &#x221A {% else %} &#9747 {% endif %} Smoker Room</li>
+                                                                            <li>{% if r.animals_accept == True %} &#x221A {% else %} &#9747 {% endif %} Animals Accept</li>
+                                                                        </ul>
+                                                                        </p>
+                                                                        <form action="/TravelBook/users" method="POST">
+                                                                            {% csrf_token %}
+                                                                            <input type="hidden" name="RoomFavorite" value={{r.id}}>
+                                                                            <input type="hidden" name="UserFavorite" value={{user.id}}>
+                                                                            {% if user.is_authenticated %}
+                                                                                <input type="Submit" name="Favorite" value="Favorite" onclick="FavoriteEvent()">
+                                                                            {% else %}
+                                                                                <input type="Submit" name="Favorite" value="Favorite" onclick="LoginEvent()">
+                                                                            {% endif %}
+                                                                        </form>
+                                                                        <form action="/TravelBook/users" method="POST">
+                                                                            {% csrf_token %}
+                                                                            <input type="hidden" name="RoomBooked" value={{r.id}}>
+                                                                            {% for p in prenotation_all %}
+                                                                                {% if p.id_room.id == r.id %}
+                                                                                    <input type="hidden" name="UserBooked" value={{p.id_user.id}}>
+                                                                                {% endif %}
+                                                                            {% endfor %}
+                                                                            <input type="hidden" name="data_arrive" value={{ data.0 }}>
+                                                                            <input type="hidden" name="data_leave" value={{ data.1 }}>
+                                                                            <input type="Submit" name="WaitingList" value="Add to waiting list" onclick="WaitingListEvent()">
+                                                                        </form>
+                                                                    </p>
+                                                            </div>
+                                                        </td>
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <td>
+                                                <div class="free_rooms">
+                                                                <h2><i>Room {{r.number_room}} of {{ r.id_location }}</i></h2>
+                                                                    <p>
+                                                                        Room number: {{r.number_room}}<br>
+                                                                        Room people: {{r.n_people}}<br>
+                                                                        Price to night: {{r.price}}<br><hr>
+                                                                        <p><h3>Features:</h3>
+                                                                        <ul style="list-style-type:circle">
+                                                                            <li>{% if r.conditioner == True %} &#x221A {% else %} &#9747 {% endif %} Conditioner</li>
+                                                                            <li>{% if r.kitchenette == True %} &#x221A {% else %} &#9747 {% endif %} Kitchenette</li>
+                                                                            <li>{% if r.smoker_room == True %} &#x221A {% else %} &#9747 {% endif %} Smoker Room</li>
+                                                                            <li>{% if r.animals_accept == True %} &#x221A {% else %} &#9747 {% endif %} Animals Accept</li>
+                                                                        </ul>
+                                                                        </p>
+                                                                        <form action="/TravelBook/" method="post">
+                                                                            {% csrf_token %}
+                                                                            <input type="hidden" name="id" value={{r.id}}>
+                                                                            <input type="hidden" name="data_arrive" value={{ data.0 }}>
+                                                                            <input type="hidden" name="data_leave" value={{ data.1 }}>
+                                                                            {% if user.is_authenticated %}
+                                                                                <input type="Submit" name="SubmitAddReservation" value="To book" onclick="ReservationEvent()">
+                                                                            {% else %}
+                                                                            <input type="Submit" name="Submit" value="To book" onclick="LoginEvent()">
+                                                                            {% endif %}
+                                                                        </form>
+
+                                                                        <form action="/TravelBook/users" method="POST">
+                                                                            {% csrf_token %}
+                                                                            <input type="hidden" name="RoomFavorite" value={{r.id}}>
+                                                                            <input type="hidden" name="UserFavorite" value={{user.id}}>
+                                                                            {% if user.is_authenticated %}
+                                                                                <input type="Submit" name="Favorite" value="Favorite" onclick="FavoriteEvent()">
+                                                                            {% else %}
+                                                                                <input type="Submit" name="Favorite" value="Favorite" onclick="LoginEvent()">
+                                                                            {% endif %}
+                                                                        </form>
+                                                                    </p>
+                                                </div>
+                                            </td>
+                                        {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </tr>
+        {% endfor %}
+    </table>
+</section>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<footer>
+    <em>Copyright © TravelBook - Developed by Paolini Marco and Moscatelli Simone.</em>
+</footer>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+</body>
+</html>

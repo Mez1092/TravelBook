@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <title> TravelBook </title>
+<head>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900,200italic' rel='stylesheet' type='text/css'>
+    <style>
+        header{
+            background-color:#CEDBE7;
+            background-size: cover;
+            height:100%;
+            width:100%;
+            color:white;
+            text-align:center;
+            padding:15px;
+        }
+        nav {
+            background: url(https://s3.amazonaws.com/wetfeetproduction/articles/photos/279/original/CP_statistics_orig20120816-17262-15cl1ww.jpg?1345138741) center;
+            background-size: cover;
+            height:300px;
+            width:100%;
+            color:black;
+            text-align:center;
+            padding:15px;
+
+        }
+        section {
+            background-color:#CEDBE7;
+            line-height:30px;
+            height:100%;
+            width:100%;
+            float:left;
+            padding:8px;
+        }
+
+        article {
+            height:100%;
+            width:100%;
+            float:left;
+            padding:10px;
+        }
+
+        aside {
+            height:100%;
+            width:100%;
+            float:left;
+            padding:10px;
+        }
+
+        footer {
+            background-color:#0A4228;
+            height:100%;
+            width:100%;
+            color:white;
+            clear:both;
+            text-align:center;
+            padding:5px;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body style="background-color:#CEDBE7; background-size: cover;">
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<header>
+    <div style="color: #eee; margin: auto; width: 100%; background: rgba(30, 30, 30, 0.7); padding-top: 5px; padding-bottom: 5px;">
+        <h1>Vote</h1>
+    </div>
+</header>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<nav>
+
+</nav>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<section>
+    <table>
+            <h2>Media Vote All User:</h2>
+            <tr>
+                <th>Location</th>
+                <th>Media</th>
+            </tr>
+            {% for l in location %}
+                {% if l.media_vote != 0 %}
+                    <tr>
+                        <td>
+                            {{ l.name }}
+                        </td>
+                        <td>
+                            {{ l.media_vote|floatformat:3 }}
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+    </table>
+    <table>
+            <h2>Last Vote Of this User:</h2>
+            <tr>
+                <th>User</th>
+                <th>Location</th>
+                <th>Vote</th>
+            </tr>
+            {% for i in votes %}
+                <tr>
+
+                    <td>
+                        {{ i.user_vote }}
+                    </td>
+                    <td>
+                        {{ i.location_vote }}
+                    </td>
+                    <td>
+                        {{ i.vote_value }}
+                    </td>
+                </tr>
+            {% endfor %}
+    </table>
+</section>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<footer>
+    <em>Copyright © TravelBook - Developed by Paolini Marco and Moscatelli Simone.</em>
+</footer>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+
+</body>
+</html>
