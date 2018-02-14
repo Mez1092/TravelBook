@@ -45,3 +45,6 @@ User: marco pw: paolini
 User: paolo pw: paolini
 
 Gli user marco e admin hanno i permessi per creare room e location.
+
+
+Modificato da PyCharm
