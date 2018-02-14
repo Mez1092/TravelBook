@@ -57,6 +57,9 @@ Modificato da Git
 
 Modificato da PuCharm
 
-Modifica Git 2.0
 
+<<<<<<< HEAD
 Modicficato da commmand line 2.0
+=======
+Modifica Git 2.0
+>>>>>>> c6c62253e5d8db479b454c1de4058b04b574b2bc

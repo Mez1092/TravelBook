@@ -235,6 +235,8 @@ def search(request):
         loc = request.POST['loc']
         date_arrive = request.POST['check_in']
         date_leave = request.POST['check_out']
+        print("checkin: ", date_arrive)
+        print("checkout: ", date_leave)
         number_people = request.POST['quantity']
         pool = 'pool' in request.POST.keys()
         wifi = 'wifi' in request.POST.keys()
@@ -270,7 +272,6 @@ def search(request):
         condition_num_people = Room.objects.filter(n_people__gte=number_people).all()
 
         locs = Location.objects.all()
-
         if pool:
             locs = locs.filter(pool=True)
         if wifi:
@@ -327,8 +328,21 @@ def search(request):
         else:
             location = location.order_by('media_vote')
 
+        print("sono nell'if")
+        print("Data: ", data)
+        print("checkin: ", date_arrive)
+        print("checkout: ", date_leave)
+        print("Location: ", location)
+        print("Prenotation All: ", prenotation_all)
+        print("Room Intersect: ", room_all)
+        print("Prenotation: ", p)
+
+
+
+
         return render(request, 'TravelBook/search.html', {'data': data, 'location': location, 'prenotation_all': prenotation_all, 'room_intersect': room_all, 'prenotation': p})
     else:
+        print("sono nell'else")
         return render(request, 'TravelBook/search.html', {'data': data, 'location': location, 'prenotation_all': prenotation_all, 'room_intersect': room_all, 'prenotation': p})
 
 
@@ -367,9 +381,11 @@ def register_user(request):
             )
             return HttpResponseRedirect('/TravelBook/register_success')
     else:
-        form = RegistrationForm()
-    variables = RequestContext(request, {'form': form})
-    return render_to_response('registration/register.html',variables,)
+        form = RegistrationForm(request.POST)
+    #variables = RequestContext(request, {'form': form})
+    #return render_to_response('registration/register.html',variables,)
+    return render(request,'registration/register.html',{'form':form})
+
 
 
 def register_success(request):
