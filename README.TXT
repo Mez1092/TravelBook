@@ -48,3 +48,8 @@ Gli user marco e admin hanno i permessi per creare room e location.
 
 
 Modificato da PyCharm
+
+
+
+
+Modificato da Git
