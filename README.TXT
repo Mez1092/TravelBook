@@ -55,4 +55,8 @@ Modificato da PyCharm
 Modificato da Git
 
 
+<<<<<<< HEAD
 Seconda modifica da command line
+=======
+Seconda modifica da git
+>>>>>>> 8407d1e525dcc837ea53b194751265e1ccd27536
