@@ -1,0 +1,68 @@
+from django.shortcuts import render
+from .models import Location
+from django.http import *
+from django.shortcuts import render_to_response,redirect
+from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+
+# Create your views here.
+from django.http import HttpResponse
+
+
+def home(request):
+    return render(request, 'TravelBook/home.html')
+
+
+def index(request):
+    return HttpResponse("You're at the amdiministration page.")
+
+
+def search(request):
+    location=Location.objects.order_by('-price')
+    #output= ', '.join([p.name for p in location])
+    output=Location.objects.get(price=12,cap=41120)
+    return HttpResponse(output)
+
+
+def view_user(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            # redirect to a success page
+            return HttpResponse("login page")
+        else:
+            # return to page for account disabled,non ho ben capito
+            return HttpResponse("login page")
+    else:
+        # return invalid login error
+        return HttpResponse("login page")
+
+
+def logout_view(request):
+    logout(request)
+    # redirect to a success page
+    return HttpResponse("logout")
+
+
+def reservation_view(request):
+    if not request.user.is_authenticated():
+        return HttpResponse(
+            "redirect")  # da rivedere perche serve o redirect o render, altrimenti decoratore(soluzione migliore)
+
+def login(request):
+    logout(request)
+    username = password = ''
+    if request.POST:
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/home/')
+    return render(context_instance=RequestContext(request),'Travelbook/login.html')
