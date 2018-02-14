@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4b3c260c-fb9a-4643-8a82-64b108c2714f" name="Default" comment="" />
+    <list default="true" id="4b3c260c-fb9a-4643-8a82-64b108c2714f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,8 +16,8 @@
       <file leaf-file-name="README.TXT" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.TXT">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="42" column="21" lean-forward="true" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+            <state relative-caret-position="201">
+              <caret line="38" column="9" lean-forward="false" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -114,7 +116,28 @@
       <option name="project" value="LOCAL" />
       <updated>1518601832647</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Merge branch 'master' of https://github.com/Mez1092/TravelBook&#10;&#10;# Conflicts:&#10;#&#9;README.TXT">
+      <created>1518603650083</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1518603650083</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Merge branch 'master' of https://github.com/Mez1092/TravelBook&#10;&#10;# Conflicts:&#10;#&#9;README.TXT">
+      <created>1518603735552</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1518603735552</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Merge branch 'master' of https://github.com/Mez1092/TravelBook&#10;&#10;# Conflicts:&#10;#&#9;README.TXT">
+      <created>1518603802593</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1518603802593</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -150,7 +173,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update Readme.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Readme.txt" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/Mez1092/TravelBook&#10;&#10;# Conflicts:&#10;#&#9;README.TXT" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/Mez1092/TravelBook&#10;&#10;# Conflicts:&#10;#&#9;README.TXT" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -159,8 +183,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.TXT">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="42" column="21" lean-forward="true" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+        <state relative-caret-position="201">
+          <caret line="38" column="9" lean-forward="false" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
           <folding />
         </state>
       </provider>
