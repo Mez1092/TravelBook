@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<title> TravelBook </title>
+<head>
+    <script type="text/javascript">
+        function time(){
+            var today=new Date();
+            var h=today.getHours();
+            var m=today.getMinutes();
+            var s=today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('txt').innerHTML = h+":"+m+":"+s;
+            var t = setTimeout(function(){time()},500);
+        }
+
+        function validateForm() {
+            var x = document.forms["myForm"]["check_in"].value;
+            if (x == null || x == "") {
+                alert("Check in must be filled out");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["check_out"].value;
+            if (x == null || x == ""){
+                alert("Check out must be filled out");
+                return false;
+            }
+        }
+
+        function checkTime(i) {
+            if (i<10) {i = "0" + i};
+            return i;
+        }
+    </script>
+
+    <style>
+
+        header{
+            background: url(https://iso.500px.com/wp-content/uploads/2015/07/banktotravel_cover.jpeg) center;
+            background-size: cover;
+            height:100%;
+            width:100%;
+            color:white;
+            text-align:center;
+            padding:2px;
+        }
+
+        nav {
+            line-height:30px;
+            height:100%;
+            width:100%;
+            float:left;
+            padding:8px;
+            margin-left: -8px;
+        }
+
+        section {
+            height:100%;
+            width:25%;
+            float:left;
+            padding:20px;
+        }
+
+        article {
+            height:100%;
+            width:100%;
+            color:#E4E2E2;
+            float:left;
+            padding:1px;
+            margin-right: 10px;
+            margin-top: -20px;
+        }
+
+        aside {
+            height:100%;
+            width:100%;
+            color:white;
+            float:left;
+            padding:5px;
+            margin-top: 10px;
+            margin-left: -5px;
+        }
+
+        footer {
+            background-color:#0A4228;
+            height:100%;
+            width:100%;
+            color:white;
+            clear:both;
+            text-align:center;
+            padding:5px;
+        }
+
+        ur {
+            display: inline-block;
+            float: right;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        ul {
+            display: inline-block;
+            float: left;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        li {
+            float: right;
+            background-color:#0A4228;
+
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111111;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+
+        }
+    </style>
+</head>
+
+<body style="background-image: url(http://www.wns.com/Portals/0/Images/HeaderBanner/desktop/1087/53/travel_HD.jpg); background-size: cover;", onload="time()">
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<header>
+    <ul>
+        <li><a href="http://127.0.0.1:8000/TravelBook/index">Location list</a></li>
+        <li><a href="http://127.0.0.1:8000/TravelBook/information">FAQ</a></li>
+        <li><a <div id="txt"></div></a></li>
+    </ul>
+    <ur>
+      <li><a href="http://127.0.0.1:8000/TravelBook/logout">Logout</a></li>
+      <li>
+          {% if user.is_authenticated %}
+            <a href="http://127.0.0.1:8000/TravelBook/users">
+            {{ user.username }}</a>
+          {% else %}
+            <li><a href="http://127.0.0.1:8000/TravelBook/autentication">Login</a> </li>
+            <li><a>Anonymous</a></li>
+          {% endif %}
+      </li>
+    </ur>
+    <div style="color: #eee; margin: auto; width: 25%; background: rgba(30, 30, 30, 0.7); padding-top: 1px; padding-bottom: 1px;">
+    <br /><br /><h1 style="display: inline-block;">Travel with us!</h1></div>
+    <br /><h2 style="display: inline-block;">Travel has never been too easy!</h2>
+</header>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<nav>
+<div style="color: #eee; margin: auto; width: 100%;height: 120px;text-align:center; background-color:#0A4228; padding-top: 1px; padding-bottom: 1px;"><br /><br /><h1 style="display: inline;" >Check reservation</h1></div>
+<br>
+    <fieldset>
+        <form name="myForm" action="search" onsubmit="return validateForm()" method="post">
+            {% csrf_token %}
+            <table><tr>
+                <td>
+                    Location:<br>
+                    <input list="loc" name="loc">
+                    <datalist id="loc">
+                        {% for l in location %}
+                            <option value="{{l.name}}">
+                        {% endfor %}
+                    </datalist>
+
+                    <br>Check in:<br>
+                    <input type="date" name="check_in">
+                    <br>
+                    Check out:<br>
+                    <input type="date" name="check_out">
+                    <br>
+                    People:
+                    <br>
+                    <input type="number" name="quantity" value="1" min="1" max="9">
+                    <br><br>
+                </td>
+                <td>
+                    <h3>Hotel features: </h3>
+                    <input type="checkbox" name="pool" value="pool"> Pool<br>
+                    <input type="checkbox" name="wifi" value="WiFi"> WiFi<br>
+                    <input type="checkbox" name="disabled" value="disabled_services"> Disabled services<br>
+                    <input type="checkbox" name="resturant" value="resturant"> Resturant<br>
+                    <input type="checkbox" name="carparcking" value="car_parcking"> Car parcking<br>
+                    <input type="checkbox" name="gym" value="gym"> Gym<br>
+                    <input type="checkbox" name="bar" value="bar"> Bar<br>
+                    <input type="checkbox" name="sports" value="sports_activities"> Sports activities<br>
+                    <input type="checkbox" name="spa" value="spa_services"> S.P.A services<br>
+                </td>
+                <td>
+                    <h3>Room features: </h3>
+                    <input type="checkbox" name="conditioner" value="conditioner"> Conditioner<br>
+                    <input type="checkbox" name="kitchenette" value="kitchenette"> Kitchenette<br>
+                    <input type="checkbox" name="smoker_room" value="smoker_room"> Smoker room<br>
+                    <input type="checkbox" name="animals_accept" value="animals_accept"> Animals<br>
+                </td>
+                <td>
+                    <h3>Order by: </h3>
+                    <input type="checkbox" name="num">Number people<br>
+                    <input type="checkbox" name="price" checked="checked">Price<br>
+                    <input type="checkbox" name="name" >Name
+                </td>
+                <td>
+                    <input type="Submit" name="Submit" value="Submit">
+                </td>
+            </tr></table>
+        </form>
+    </fieldset>
+</nav>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<section>
+
+</section>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<article>
+    <div style="color: #eee; margin: auto; width: 100%; height: 80px; text-align:center; background-color:#0A4228; padding-top: 1px; padding-bottom: 1px;"><br /><br /><h1 style="display: inline;">Last 3 votes</h1></div>
+    <table style="width:100%">
+        <tr>
+            <th>User</th>
+            <th>Location</th>
+            <th>Vote</th>
+        </tr>
+        <tr>
+            <td>{{votes.last.user_vote}}</td>
+            <td>{{votes.last.location_vote.name}}</td>
+            <td>{{votes.last.vote_value}}</td>
+        </tr>
+        <tr>
+            <td>{{votes.0.user_vote}}</td>
+            <td>{{votes.0.location_vote.name}}</td>
+            <td>{{votes.0.vote_value}}</td>
+        </tr>
+        <tr>
+            <td>{{votes.1.user_vote}}</td>
+            <td>{{votes.1.location_vote.name}}</td>
+            <td>{{votes.1.vote_value}}</td>
+        </tr>
+    </table>
+</article>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<aside>
+    <div style="color: #eee; margin: auto; width: 100%; height: 80px;text-align:center; background-color:#0A4228; padding-top: 1px; padding-bottom: 1px;"><br /><br /><h1 style="display: inline">News</h1></div>
+    <h3>Last reservation:</h3>
+    <p>User: {{ prenotation.last.id_user.username }} have booked his holiday in {{ prenotation.last.id_room.id_location.name }}</p>
+    <hr>
+    <h3>Last login:</h3>
+    <p>{{ user.last_login }}</p>
+    <hr>
+    <h3>New reserved</h3>
+    <p>User SpledidKiwi have just reserved his holiday in Europe.</p>
+    <hr>
+    <h3>New locations</h3>
+    <p>Add new locations in Colorado.</p>
+</aside>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<footer>
+    <em>Copyright © TravelBook - Developed by Paolini Marco and Moscatelli Simone.</em>
+</footer>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+</body>
+</html>

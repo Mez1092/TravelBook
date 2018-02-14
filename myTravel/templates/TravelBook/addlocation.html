@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+    <title> TravelBook </title>
+<head>
+    <script type="text/javascript">
+        function validateForm(){
+            var x = document.forms["myForm"]["loc"].value;
+            if (x == null || x == ""){
+                alert("Location name in must be filled out");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["adr"].value;
+            if (x == null || x == ""){
+                alert("Address must be filled out");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["mun"].value;
+            if (x == null || x == ""){
+                alert("Municipality must be filled out");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["cit"].value;
+            if (x == null || x == ""){
+                alert("City must be filled out");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["country"].value;
+            if (x == null || x == ""){
+                alert("Country must be filled out");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["cap"].value;
+            if (x == null || x == ""){
+                alert("CAP must be filled out");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["tel"].value;
+            if (x == null || x == ""){
+                alert("Telephone must be filled out");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["desc"].value;
+            if (x == null || x == ""){
+                alert("Description must be filled out");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["web"].value;
+            if (x == null || x == ""){
+                alert("Web site must be filled out");
+                return false;
+            }
+
+            alert('{{ user.username }} successfully add location in TravelBook.')
+        }
+    </script>
+    <style>
+
+    header{
+        background-color:#CEDBE7;
+        background-size: cover;
+        height:100%;
+        width:100%;
+        color:white;
+        text-align:center;
+        padding:15px;
+    }
+    nav {
+        background: url(http://www.appartamenti-bustoarsizio.com/immagini_residenza_agena/location.jpg) center;
+        background-size: cover;
+        height:300px;
+        width:100%;
+        color:black;
+        text-align:center;
+        padding:15px;
+
+    }
+    section {
+        line-height:30px;
+        height:100%;
+        width:60%;
+        float:left;
+        padding:8px;
+        margin-left: -8px;
+    }
+
+    article {
+        height:100%;
+        width:100%;
+        float:left;
+        padding:10px;
+    }
+
+    aside {
+        height:100%;
+        width:100%;
+        float:left;
+        padding:10px;
+    }
+
+    footer {
+        background-color:#0A4228;
+        height:100%;
+        width:100%;
+        color:white;
+        clear:both;
+        text-align:center;
+        padding:5px;
+    }
+
+    div.locations {
+        background-color:#0A4228;
+        color: white;
+        margin: 20px 0 20px 0;
+        padding: 20px;
+    }
+
+    </style>
+</head>
+<body style="background-color:#CEDBE7; background-size: cover;">
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<header>
+    <div style="color: #eee; margin: auto; width: 100%; background: rgba(30, 30, 30, 0.7); padding-top: 5px; padding-bottom: 5px;">
+        <h1>Add location</h1>
+    </div>
+</header>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<nav>
+
+</nav>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<section>
+    <fieldset>
+        <form name="myForm" action="/TravelBook/" onsubmit="return validateForm()" method="POST">
+            {% csrf_token %}
+            <table style="width: 100%"><tr>
+                <td>
+                    <br>Location Name:<br>
+                    <input type="text" name="loc">
+                    <br>Location Address:<br>
+                    <input type="text" name="adr">
+                    <br>Location Municipality:<br>
+                    <input type="text" name="mun">
+                    <br>Location City:<br>
+                    <input type="text" name="cit">
+                    <br>Location Country:<br>
+                    <input type="text" name="country">
+                    <br>Location CAP:<br>
+                    <input type="text" name="cap">
+                    <br>Location Telephone:<br>
+                    <input type="text" name="tel">
+                    <br>Location Stars:<br>
+                    <input type="number" name="stars" value="1" min="1" max="5">
+                    <br>Location Description:<br>
+                    <input type="text" name="desc">
+                    <br>Location Web-site:<br>
+                    <input type="text" name="web">
+                </td>
+                <td>
+                    <h3>Hotel features: </h3>
+                    <input type="checkbox" name="pool" value="pool"> Pool<br>
+                    <input type="checkbox" name="wifi" value="WiFi"> WiFi<br>
+                    <input type="checkbox" name="disabled" value="disabled_services"> Disabled services<br>
+                    <input type="checkbox" name="resturant" value="resturant"> Resturant<br>
+                    <input type="checkbox" name="carparcking" value="car_parcking"> Car parcking<br>
+                    <input type="checkbox" name="gym" value="gym"> Gym<br>
+                    <input type="checkbox" name="bar" value="bar"> Bar<br>
+                    <input type="checkbox" name="sports" value="sports_activities"> Sports activities<br>
+                    <input type="checkbox" name="spa" value="spa_services"> S.P.A services<br>
+                </td>
+                <td>
+                    <input type="Submit" name="SubmitAddLocation" value="Submit">
+                </td>
+            </tr></table>
+        </form>
+    </fieldset>
+</section>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<footer>
+    <em>Copyright © TravelBook - Developed by Paolini Marco and Moscatelli Simone.</em>
+</footer>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+</body>
+</html>

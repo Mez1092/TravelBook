@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<title> TravelBook </title>
+<head>
+
+ <script>
+        function RegistrationEvent(){
+            window.location.href="http://127.0.0.1:8000/TravelBook/register"
+        }
+ </script>
+
+<style>
+header{
+    background-color: #255D3B;
+    background-size: cover;
+    height:100%;
+    width:100%;
+    color:white;
+    text-align:center;
+    padding:2px;
+}
+
+footer {
+    background-color:#255D3B;
+    height:100%;
+    width:100%;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;
+}
+</style>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+ {% block head %}{% endblock %}
+ </head>
+ {% block content %}{% endblock %}
+<body>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<header>
+{% block body %}{% endblock %}
+<br><button type="button" onclick='RegistrationEvent()'>Registration</button>
+</header>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<footer>
+<em><br>Authenticated properly to better use the site.</em>
+</footer>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+</body>
+</html>

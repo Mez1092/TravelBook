@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+    <title> TravelBook </title>
+<head>
+    <script type="text/javascript">
+        function validateForm(){
+            var x = document.forms["myForm"]["loc"].value;
+            if (x == null || x == ""){
+                alert("Location must be filled out");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["n_room"].value;
+            if (x == null || x == ""){
+                alert("Number room must be filled out");
+                return false;
+            }
+            if (isNaN(x)){
+                alert("Number room must be a number");
+                return false;
+            }
+
+
+            var x = document.forms["myForm"]["price"].value;
+            if (x == null || x == ""){
+                alert("Price room must be filled out");
+                return false;
+            }
+            if (isNaN(x) ){
+                alert("Price must be a number");
+                return false;
+            }
+
+            var x = document.forms["myForm"]["n_people"].value;
+            if (x == null || x == ""){
+                alert("Number people must be filled out");
+                return false;
+            }
+
+            if (isNaN(x) ){
+                alert("Number people must be a number");
+                return false;
+            }
+            alert('{{ user.username }} successfully add room in TravelBook.')
+        }
+    </script>
+<style>
+
+    header{
+        background-color:#CEDBE7;
+        background-size: cover;
+        height:100%;
+        width:100%;
+        color:white;
+        text-align:center;
+        padding:15px;
+    }
+    nav {
+        background: url(http://hmsdemo.dhru.com/images/gallery/room/delux/SetHeight800-Deluxe-Room-Bedroom.jpg) center;
+        background-size: cover;
+        height:300px;
+        width:100%;
+        color:black;
+        text-align:center;
+        padding:15px;
+
+    }
+    section {
+        line-height:30px;
+        height:100%;
+        width:60%;
+        float:left;
+        padding:8px;
+        margin-left: -8px;
+    }
+
+    article {
+        height:100%;
+        width:100%;
+        float:left;
+        padding:10px;
+    }
+
+    aside {
+        height:100%;
+        width:100%;
+        float:left;
+        padding:10px;
+    }
+
+    footer {
+        background-color:#0A4228;
+        height:100%;
+        width:100%;
+        color:white;
+        clear:both;
+        text-align:center;
+        padding:5px;
+    }
+
+    div.locations {
+        background-color:#0A4228;
+        color: white;
+        margin: 20px 0 20px 0;
+        padding: 20px;
+    }
+
+    </style>
+</head>
+<body style="background-color:#CEDBE7; background-size: cover;">
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<header>
+    <div style="color: #eee; margin: auto; width: 100%; background: rgba(30, 30, 30, 0.7); padding-top: 5px; padding-bottom: 5px;">
+        <h1>Add Room</h1>
+    </div>
+</header>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<nav>
+
+</nav>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<section>
+    <fieldset>
+        <form name="myForm" action="/TravelBook/" onsubmit="return validateForm()" method="POST">
+            {% csrf_token %}
+            <table style="width: 100%"><tr>
+                <td>
+                    <br>Location ID:<br>
+                    <input list="loc" name="loc" >
+                    <datalist id="loc" >
+                    <p> {% for l in location %}
+                            <option value="{{l.name}}">
+                        {% endfor %}</p>
+                    </datalist>
+                    <br>Number Room:<br>
+                    <input type="text" name="n_room">
+                    <br>Room Price:<br>
+                    <input type="text" name="price">
+                    <br>Room People:<br>
+                    <input type="number" name="n_people">
+                </td>
+                <td>
+                    <h3>Room features: </h3>
+                    <input type="checkbox" name="conditioner" value="conditioner"> Conditioner<br>
+                    <input type="checkbox" name="kitchenette" value="kitchenette"> Kitchenette<br>
+                    <input type="checkbox" name="smoker_room" value="smoker_room"> Smoker room<br>
+                    <input type="checkbox" name="animals_accept" value="animals_accept"> Animals<br>
+                </td>
+                <td>
+                    <input type="Submit" name="SubmitAddRoom" value="Submit">
+                </td>
+            </tr></table>
+        </form>
+    </fieldset>
+</section>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<footer>
+    <em>Copyright © TravelBook - Developed by Paolini Marco and Moscatelli Simone.</em>
+</footer>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+</body>
+</html>

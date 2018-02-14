@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+    <title> TravelBook </title>
+<head>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <script>
+        function DeleteReservationEvent(){
+            alert('{{ user.username }} successfully delete this room from reservation.')
+        }
+        function DeleteFavoriteEvent(){
+            alert('{{ user.username }} successfully delete this room from favorite.')
+        }
+        function DeleteWaitingList(){
+            alert('{{ user.username }} successfully delete this room from waiting list.')
+        }
+        function VoteEvent(){
+            alert('{{ user.username }} successfully vote this location.')
+        }
+    </script>
+<style>
+    header{
+        background-color:#CEDBE7;
+        background-size: cover;
+        height:auto;
+        width:auto;
+        color:white;
+        text-align:center;
+        padding:15px;
+        margin-left: -25px;
+        margin-right: -25px;
+    }
+    nav {
+        background: url(http://www.albergovillaurora.it/wp-content/uploads/2012/06/prenotazione_imag.jpg) center;
+        background-size: auto;
+        height: 300px;
+        width:auto;
+        color:black;
+        text-align:center;
+        padding:15px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+    section {
+        height:100%;
+        width:100%;
+        float:left;
+        padding:8px;
+    }
+
+    article {
+        height:100%;
+        width:100%;
+        text-align: center;
+        padding:8px;
+    }
+
+    aside {
+        height:100%;
+        width:100%;
+        float:left;
+        padding:8px;
+    }
+
+    summary {
+        height:100%;
+        width:100%;
+        text-align: center;
+        padding:8px;
+    }
+
+    maction{
+        height:100%;
+        width:100%;
+        float:left;
+        padding:8px;
+    }
+
+    footer {
+        background-color:#0A4228;
+        height:100%;
+        width:100%;
+        color:white;
+        clear:both;
+        text-align:center;
+        padding:5px;
+    }
+
+    div.prenotations {
+        background-color:#BA4F1E;
+        color: white;
+        margin: 20px 0 20px 0;
+        padding: 20px;
+    }
+
+    div.favorites {
+        background-color:#BFA22E;
+        color: white;
+        margin: 20px 0 20px 0;
+        padding: 20px;
+    }
+
+    div.waiting_list {
+        background-color: #6681bf;
+        color: white;
+        margin: 20px 0 20px 0;
+        padding: 20px;
+    }
+
+    ur {
+        display: inline-block;
+        float: right;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
+    li {
+        float: right;
+        background-color:#0A4228;
+
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #111111;
+    }
+
+    ul {
+        display: inline-block;
+        float: left;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+</style>
+</head>
+<body style="background-color: #CEDBE7; background-size: cover;">
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<header>
+    <div style="color: #eee; margin: auto; width: 100%; background: rgba(30, 30, 30, 0.7); padding-top: 5px; padding-bottom: 5px;">
+        <ul>
+            <li><a href="http://127.0.0.1:8000/TravelBook/index">Location list</a></li>
+            <li><a href="http://127.0.0.1:8000/TravelBook/vote">My Vote</a></li>
+        </ul>
+        <ur>
+            <li><a href="http://127.0.0.1:8000/TravelBook/">Home</a></li>
+            <li><a href="http://127.0.0.1:8000/TravelBook/addlocation"> Add Location</a></li>
+            <li><a href="http://127.0.0.1:8000/TravelBook/addroom"> Add Room</a></li>
+        </ur>
+
+        <h1>User: {{ user.username }}</h1>
+        <h3>Last login: {{ user.last_login }}</h3>
+    </div>
+</header>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+
+<nav>
+    <h1 style="font-size: 400%;">Prenotations:</h1>
+</nav>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<section>
+   <table style="width:100%">
+        {% for p in prenotation %}
+            <p> 
+                <tr>
+                    <td>
+                        <div class="prenotations">
+                            <p><h2>Location: {{p.id_room.id_location.name}}</h2></p>
+                                    {{ p.id_room.id_location.description }}
+                                    <hr>
+                                    <p>Room number: {{p.id_room.number_room}}</p>
+                                    <p>Prenotation from: {{ p.check_in }} to {{ p.check_out }}</p>
+                                    <hr>
+                                    <p><h4>Location position:</h4></p>
+                                    <p>{{ p.id_room.id_location.address }} - {{ p.id_room.id_location.municipality }} - {{ p.id_room.id_location.city }} - {{ p.id_room.id_location.country }}</p>
+                                    <p><a href="{{p.id_room.id_location.site_web}}">Site web {{p.id_room.id_location.name}}</a></p><hr>
+
+                                    <h2>Vote your holiday:</h2>
+                                    <form action="/TravelBook/" method="POST">
+                                        {% csrf_token %}
+                                        <input type="number" name="stars" value="1" min="1" max="5">
+                                        <input type="Submit" name="SubmitVote" value="Vote" id="mySubmitVote" onclick=VoteEvent()><br><br>
+                                        <input type="hidden" name="LocationID" value={{ p.id_room.id_location.id }}>
+                                    </form>
+                                    <form action="/TravelBook/" method="POST">
+                                         {% csrf_token %}
+                                         <input type="Submit" name="SubmitDeleteReservation" value="Delete from prenotation" onclick=DeleteReservationEvent()>
+                                         <input type="hidden" name="ReservationId" value={{p.id}}>
+                                    </form>
+                            </p>
+                        </div>
+                    </td>
+                </tr>
+            </p>
+        {% endfor %}
+    </table>
+</section>
+
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<article>
+    <h1 style="font-size: 400%;">Favorites:</h1>
+</article>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<aside>
+    <table style="width:100%">
+        {% for p in RoomFavorite %}
+            <p> 
+                <tr>
+                    <td>
+                        <div class="favorites">
+                            <p><h2>Location: {{p.room_favorite.id_location.name}}</h2></p>
+                            {{ p.room_favorite.id_location.description }}
+                            <hr>
+                            <p>Room number: {{p.room_favorite.number_room}}</p>
+                            <hr>
+                            <p><h4>Location position:</h4></p>
+                            <p>{{ p.room_favorite.id_location.address }} - {{ p.room_favorite.id_location.municipality }} - {{ p.room_favorite.id_location.city }} - {{ p.room_favorite.id_location.country }}</p>
+                            <p><a href="{{p.room_favorite.id_location.site_web}}">Site web {{p.room_favorite.id_location.name}}</a></p>
+                            <form action="/TravelBook/" method="POST">
+                                {% csrf_token %}
+                                <input type="Submit" name="SubmitDeleteFavorite" value="Delete from favorites" onclick=DeleteFavoriteEvent()>
+                                <input type="hidden" name="FavoriteId" value={{p.id}}>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </p>
+        {% endfor %}
+    </table>
+</aside>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<summary>
+    <h1 style="font-size: 400%;">Waiting list:</h1>
+</summary>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<maction>
+    <table style="width:100%">
+        {% for p in RoomWaitingList %}
+            <p> 
+                <tr>
+                    <td>
+                        <div class="waiting_list">
+                            <p><h2>Location: {{p.room_waiting_list.id_location.name}}</h2></p>
+                            {{ p.room_waiting_list.id_location.description }}
+                            <hr>
+                            <p>Room number: {{p.room_waiting_list.number_room}}</p>
+                            <hr>
+                            <p>User booked: {{ p.user_reservetion }}</p>
+                            <p>User attend: {{ p.user_waiting_list }}</p>
+                            <hr>
+                            <p><h4>Location position:</h4></p>
+                            <p>{{ p.room_waiting_list.id_location.address }} - {{ p.room_waiting_list.id_location.municipality }} - {{ p.room_waiting_list.id_location.city }} - {{ p.room_waiting_list.id_location.country }}</p>
+                            <p><a href="{{p.room_waiting_list.id_location.site_web}}">Site web {{p.room_waiting_list.id_location.name}}</a></p>
+                            <form action="/TravelBook/" method="POST">
+                                {% csrf_token %}
+                                <input type="Submit" name="SubmitDeleteWaitingList" value="Delete from waiting list" onclick=DeleteWaitingList()>
+                                <input type="hidden" name="WaitingListId" value={{p.id}}>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </p>
+        {% endfor %}
+    </table>
+</maction>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+<footer>
+    <em>Copyright © TravelBook - Developed by Paolini Marco and Moscatelli Simone.</em>
+</footer>
+<!---OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO!-->
+</body>
+</html>
